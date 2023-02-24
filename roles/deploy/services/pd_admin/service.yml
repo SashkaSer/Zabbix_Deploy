@@ -1,0 +1,18 @@
+---
+- name: pg_admin Выкладка
+  block:
+    - name: Выкладка admin
+      community.docker.docker_container:
+        name: PG_admin_Container
+        image: dpage/pgadmin4
+        state: started
+        recreate: true
+        env:
+          PGADMIN_DEFAULT_EMAIL: sergienkoav@sasha.com
+          PGADMIN_DEFAULT_PASSWORD: "{{ pd_admin.pg_admin_passwd }}"  #qwe123
+        ports:
+          - 61231:80
+        networks:
+          - name: "{{ network_name }}"
+            ipv4_address: 172.22.0.3
+  tags: deploy

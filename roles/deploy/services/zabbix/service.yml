@@ -1,0 +1,21 @@
+---
+- name: Выкладка Zabbix Server
+  block:
+    - name: Выкладка Zabbix Server
+      community.docker.docker_container:
+        name: Zabbix_Server
+        image: zabbix/zabbix-server-pgsql
+        state: started
+        recreate: true
+        env:
+          DB_SERVER_HOST: '172.22.0.2'
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "{{ DB.post_passwd }}"
+        ports:
+          - 10051:10051
+        networks:
+          - name: "{{ network_name }}"
+            ipv4_address: 172.22.0.4
+  tags: deploy
+
+   #sergienkoav12!3!!

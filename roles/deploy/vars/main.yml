@@ -1,0 +1,2 @@
+network_name: my_network_for_Zabbix
+internal_network: "172.22.0.0/24"

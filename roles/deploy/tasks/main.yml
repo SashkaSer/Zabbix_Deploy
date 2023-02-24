@@ -1,0 +1,25 @@
+---
+- name: Create network
+  community.docker.docker_network:
+    name: "{{ network_name }}"
+    driver: bridge
+    ipam_config:
+      - subnet: "{{ internal_network }}"
+  tags: preconf
+#  become: true
+- name: Выкладка сервиса DB
+  include: "../services/DB/service.yml"
+#  loop: "{{ services }}" не работает, видимо нужно все параметризировать
+  
+- name: Выкладка сервиса pg admin
+  include: "../services/pd_admin/service.yml"
+  tags: deploy
+
+- name: Выкладка сервиса Zabbix Server
+  include: "../services/zabbix/service.yml"
+  tags: deploy
+
+- name: Выкладка сервиса Zabbix GUI
+  include: "../services/zabbix_gui/service.yml"
+  tags: deploy
+

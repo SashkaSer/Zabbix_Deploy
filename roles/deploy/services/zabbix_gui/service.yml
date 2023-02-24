@@ -1,0 +1,23 @@
+---
+- name: Выкладка Zabbix Gui
+  block:
+    - name: Выкладка Zabbix Gui
+      community.docker.docker_container:
+        name: Zabbix_Gui
+        image: zabbix/zabbix-web-apache-pgsql
+        state: started
+        recreate: true
+        env:
+          DB_SERVER_HOST: '172.22.0.2'
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "{{ DB.post_passwd }}" 
+          ZBX_SERVER_HOST: "zabbix_wgui"
+          PHP_TZ: "Europe/Moscow"
+        ports:
+          - 443:8443
+          - 80:8080
+        networks:
+          - name: "{{ network_name }}"
+            ipv4_address: 172.22.0.5
+  tags: deploy
+  #sergienkoav12!3!!

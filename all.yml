@@ -1,0 +1,9 @@
+---
+- name: Zabbix deploy
+  hosts: srv2
+  roles:
+    - role: preconf
+      tags: preconf
+    - role: deploy
+      tags: deploy
+  become: true

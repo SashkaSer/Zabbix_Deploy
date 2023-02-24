@@ -1,0 +1,22 @@
+---
+- name: postgress Выкладка
+  block:
+    - name: Выкладка Postgress
+      community.docker.docker_container:
+        name: Postgress_Container
+        image: postgres
+        state: started
+        recreate: true
+        volumes:
+          - /pg_data:/var/lib/postgresql/data/pgdata
+        env:
+          POSTGRES_PASSWORD: "{{ DB.post_passwd }}" 
+          POSTGRES_DB: sergienko-db
+          PGDATA: /var/lib/postgresql/data/pgdata
+        ports:
+          - 5432:5432
+        networks:
+          - name: "{{ network_name }}"
+            ipv4_address: 172.22.0.2 
+  tags: deploy
+  #sergienkoav12!3!!
