@@ -5,7 +5,7 @@
     driver: bridge
     ipam_config:
       - subnet: "{{ internal_network }}"
-  tags: preconf
+  tags: deploy
 #  become: true
 - name: Выкладка сервиса DB
   include: "../services/DB/service.yml"
